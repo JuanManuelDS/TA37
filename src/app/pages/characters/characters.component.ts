@@ -1,8 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { catchError, map } from 'rxjs';
 import { PersonajesService } from 'src/app/services/personajes.service';
-import { Character, DBResponse } from '../../interfaces/character.interface';
 
 @Component({
   selector: 'app-characters',
@@ -14,11 +11,29 @@ export class CharactersComponent implements OnInit {
     return this.personajesService.personajesBuscados;
   }
 
+  get pageIndex() {
+    return this.personajesService.pageIndex;
+  }
+
   constructor(private personajesService: PersonajesService) {}
 
   ngOnInit() {
     //Cuando se termina de cargar el componente llamo a la función cargarPersonajes del service para
     //que cargue los personajes
     this.personajesService.cargarPersonajes().subscribe();
+  }
+
+  siguientePagina() {
+    this.personajesService.nextPage().subscribe();
+  }
+
+  paginaAnterior() {
+    if (this.pageIndex > 1) {
+      this.personajesService.previousPage().subscribe();
+    }
+  }
+
+  seleccionarPagina(num: number) {
+    this.personajesService.selectPage(num).subscribe();
   }
 }
