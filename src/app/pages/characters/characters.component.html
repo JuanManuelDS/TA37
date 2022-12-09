@@ -1,0 +1,21 @@
+<div *ngIf="personajes; else loading" class="container-fluid mt-4">
+  <div class="row d-flex justify-content-center">
+    <div
+      class="card carta m-3 p-0 float-start"
+      *ngFor="let personaje of personajes"
+    >
+      <img
+        src="{{ personaje.image }}"
+        class="card-img-top"
+        alt="{{ personaje.name }}"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ personaje.name }}</h5>
+        <div class="row">
+          <a href="#" class="btn btn-warning col mx-4">See more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>Cargando...</ng-template>
